@@ -43,6 +43,7 @@ function createSheetIdBatchURL(spreadsheetId, apiKey, ranges) {
     return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?${qsRanges}&key=${apiKey}`;
 }
 const SHEET_INFO_PATH = path.join(__dirname, `./json/sheetInfo.json`);
+const SHEET_DETAILS_PATH = path.join(__dirname, `./json/sheetDetails.json`);
 async function retrieveSheetInfo() {
     try {
         if (typeof SPREADSHEET_ID !== 'string'
@@ -100,6 +101,7 @@ async function readLocalSheetInfo() {
     try {
         const response = await fetch(sheetRangesURL);
         const parsed = await response.json();
+        await fs.writeFile(SHEET_INFO_PATH, JSON.stringify(parsed));
         console.log('response', response);
         console.log('parsed', parsed);
     }
