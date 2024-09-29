@@ -1,5 +1,6 @@
 import * as sheet from '@googleapis/sheets'
 import * as fs from 'node:fs/promises'
+import * as fsSync from 'node:fs'
 import * as dotenv from 'dotenv'
 import * as path from 'path'
 import * as qs from 'qs'
@@ -55,10 +56,15 @@ async function retrieveSheetInfo() {
 
 async function readLocalSheetInfo() {
   try {
+    if (!fsSync.existsSync(SHEET_INFO_PATH)) {
+      throw new Error('file does not exist')
+    }
+
     const data = await fs.readFile(SHEET_INFO_PATH, 'utf8')
     return JSON.parse(data) satisfies Sheets
   } catch (e) {
     console.error('reading local sheet: ', e)
+    throw new Error('error or file does not exist')
   }
 }
 

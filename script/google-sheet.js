@@ -24,6 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("node:fs/promises"));
+const fsSync = __importStar(require("node:fs"));
 const dotenv = __importStar(require("dotenv"));
 const path = __importStar(require("path"));
 const qs = __importStar(require("qs"));
@@ -65,11 +66,15 @@ async function retrieveSheetInfo() {
 }
 async function readLocalSheetInfo() {
     try {
+        if (!fsSync.existsSync(SHEET_INFO_PATH)) {
+            throw new Error('file does not exist');
+        }
         const data = await fs.readFile(SHEET_INFO_PATH, 'utf8');
         return JSON.parse(data);
     }
     catch (e) {
         console.error('reading local sheet: ', e);
+        throw new Error('error or file does not exist');
     }
 }
 // take sheet and create CSV
