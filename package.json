@@ -6,7 +6,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "convert-docx": "tsc ./script/convertDocx.ts && node ./script/convertDocx.js"
   },
   "dependencies": {
     "next": "14.2.13",
