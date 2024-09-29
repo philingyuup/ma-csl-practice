@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "convert-docx": "tsc ./script/convertDocx.ts && node ./script/convertDocx.js"
+    "convert-docx": "tsc ./script/convertDocx.ts && node ./script/convertDocx.js",
+    "download-csv": "tsc -t esnext -m nodenext ./script/google-sheet.ts && node ./script/google-sheet"
   },
   "dependencies": {
     "next": "14.2.13",
@@ -15,9 +16,12 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@google-cloud/local-auth": "2.1.0",
+    "@googleapis/sheets": "^9.3.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "mammoth": "^1.8.0",

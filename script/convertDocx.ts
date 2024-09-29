@@ -1,5 +1,5 @@
-import * as mammoth from 'mammoth';
-import * as path from 'path';
+import * as mammoth from 'mammoth'
+import * as path from 'path'
 import * as fs from 'node:fs/promises'
 
 const fileNames = [
@@ -11,7 +11,7 @@ const fileNames = [
   'PQ3',
   'PQ4',
   'PQ5',
-];
+]
 
 const DOCX = 'docx' as const
 const HTML = 'html' as const
