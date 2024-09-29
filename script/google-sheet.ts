@@ -16,9 +16,13 @@ function createSheetsURL(spreadsheetId: string, apiKey: string) {
 
 const SHEET_RANGE_COLUMNS = 'A1:G30'
 
-function createSheetIdBatchURL(spreadsheetId: string, apiKey: string, ranges: string[]) {
-  const qsRanges = qs.stringify({ ranges: ranges[0] }, { indices: false, encode: false })
+function createSingleSheetIdUrl(spreadsheetId: string, apiKey: string, ranges: string[]) {
   return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${ranges[0]}?key=${apiKey}`
+}
+
+function createSheetIdBatchURL(spreadsheetId: string, apiKey: string, ranges: string[]) {
+  const qsRanges = qs.stringify({ ranges }, { indices: false, encode: false })
+  return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?${qsRanges}&key=${apiKey}`
 }
 
 type Sheets = {
@@ -85,7 +89,7 @@ async function readLocalSheetInfo() {
   }
   
   const sheetRangesURL = createSheetIdBatchURL(SPREADSHEET_ID, API_KEY, sheetTitles)
-
+  console.log('sheetRangesURL', sheetRangesURL)
   try {
     const response = await fetch(sheetRangesURL)
     const parsed = await response.json()

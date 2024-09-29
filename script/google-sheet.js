@@ -35,9 +35,12 @@ function createSheetsURL(spreadsheetId, apiKey) {
     return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}?key=${apiKey}`;
 }
 const SHEET_RANGE_COLUMNS = 'A1:G30';
-function createSheetIdBatchURL(spreadsheetId, apiKey, ranges) {
-    const qsRanges = qs.stringify({ ranges: ranges[0] }, { indices: false, encode: false });
+function createSingleSheetIdUrl(spreadsheetId, apiKey, ranges) {
     return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${ranges[0]}?key=${apiKey}`;
+}
+function createSheetIdBatchURL(spreadsheetId, apiKey, ranges) {
+    const qsRanges = qs.stringify({ ranges }, { indices: false, encode: false });
+    return `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?${qsRanges}&key=${apiKey}`;
 }
 const SHEET_INFO_PATH = path.join(__dirname, `./json/sheetInfo.json`);
 async function retrieveSheetInfo() {
@@ -93,6 +96,7 @@ async function readLocalSheetInfo() {
         throw new Error('Bad process.env');
     }
     const sheetRangesURL = createSheetIdBatchURL(SPREADSHEET_ID, API_KEY, sheetTitles);
+    console.log('sheetRangesURL', sheetRangesURL);
     try {
         const response = await fetch(sheetRangesURL);
         const parsed = await response.json();
