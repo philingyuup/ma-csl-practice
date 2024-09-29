@@ -101,7 +101,7 @@ async function readLocalSheetInfo() {
     try {
         const response = await fetch(sheetRangesURL);
         const parsed = await response.json();
-        await fs.writeFile(SHEET_INFO_PATH, JSON.stringify(parsed));
+        await fs.writeFile(SHEET_DETAILS_PATH, JSON.stringify(parsed));
         console.log('response', response);
         console.log('parsed', parsed);
     }
