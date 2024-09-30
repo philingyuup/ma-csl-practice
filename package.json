@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "convert-docx": "tsc ./script/convertDocx.ts && node ./script/convertDocx.js",
-    "download-csv": "tsc -t esnext -m nodenext ./script/google-sheet.ts && node ./script/google-sheet"
+    "download-csv": "tsc -t esnext -m nodenext ./script/google-sheet.ts && node ./script/google-sheet",
+    "aggregate-details": "tsc -t esnext -m nodenext ./script/aggregateDetails.ts && node ./script/aggregateDetails"
   },
   "dependencies": {
     "next": "14.2.13",
