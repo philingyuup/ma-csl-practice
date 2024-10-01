@@ -46,7 +46,7 @@ export function RadioGroupForm(props: RadioGroupFormProps) {
           name='type'
           render={({ field }) => (
             <FormItem className='space-y-3'>
-              <FormLabel>Notify me about...</FormLabel>
+              <FormLabel>{props.title}</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -55,6 +55,7 @@ export function RadioGroupForm(props: RadioGroupFormProps) {
                 >
                   {props.options.map((radio) => (
                     <RadioItem 
+                      key={radio.value}
                       name={radio.name}
                       value={radio.value}
                     />

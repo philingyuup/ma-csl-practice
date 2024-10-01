@@ -2,11 +2,12 @@
 
 import { RadioValues } from "@/validation/formSchema"
 import { RadioGroupForm, RadioGroupFormProps } from "../components/base/radioGroup"
+import { ExamState } from "@/zustand/exam"
 
 const radioGroupAnswers = {
   'A': 'Practice',
   'B': 'Exam'
-} as const satisfies Partial<Record<RadioValues, string>>
+} as const satisfies Partial<Record<RadioValues, ExamState['examType']>>
 type RadioGroupAnswerKey = keyof typeof radioGroupAnswers
 
 const options = Object.keys(radioGroupAnswers).reduce<RadioGroupFormProps['options']>((opt, key) => [...opt, { name: radioGroupAnswers[key as RadioGroupAnswerKey], value: key }], [])
@@ -17,7 +18,7 @@ const radioGroupDetails = {
 } as const satisfies Omit<RadioGroupFormProps, 'onClickRightButton'>
 
 export default function ExamOrPractice() {
-
+  
 
   const onSubmit: RadioGroupFormProps['onClickRightButton'] = function(data) {
     if (data.type === 'C' || data.type === 'D') {

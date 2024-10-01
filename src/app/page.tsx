@@ -1,6 +1,6 @@
 import { RadioGroupForm, RadioGroupFormProps } from "@/components/base/radioGroup";
 import { RadioValues } from "@/validation/formSchema";
-import ExamOrPractice from "./ExamPractice";
+import ExamOrPractice from "./examOrPractice";
 
 export default function Home() {
   
