@@ -12,7 +12,9 @@ export function middleware(req: NextRequest) {
       return NextResponse.next()
     }
   }
-  url.pathname = '/api/auth'
-
-  return NextResponse.rewrite(url)
+  
+  return new NextResponse('Authentication required', {
+    status: 401,
+    headers: { 'WWW-Authenticate': 'Basic' },
+  });
 }
