@@ -1,20 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export function middleware(req: NextRequest) {
-  const basicAuth = req.headers.get('authorization')
-  const url = req.nextUrl
-
-  if (basicAuth) {
-    const authValue = basicAuth.split(' ')[1]
-    const [user, pwd] = atob(authValue).split(':')
-
-    if (user === process.env.BASIC_AUTH_USERNAME && pwd === process.env.BASIC_AUTH_PW) {
-      return NextResponse.next()
-    }
+  if (!isAuthenticated(req)) {
+    return new NextResponse('Authentication required', {
+      status: 401,
+      headers: { 'WWW-Authenticate': 'Basic' },
+    });
   }
-  
-  return new NextResponse('Authentication required', {
-    status: 401,
-    headers: { 'WWW-Authenticate': 'Basic' },
-  });
+
+  return NextResponse.next();
+}
+
+function isAuthenticated(req: NextRequest) {
+  const basicAuth = req.headers.get('authorization') || req.headers.get('Authorization');
+
+  if (!basicAuth) {
+    return false;
+  }
+
+  const authValue = basicAuth.split(' ')[1]
+  const [user, pwd] = atob(authValue).split(':')
+
+  if (user === process.env.BASIC_AUTH_USERNAME && pwd === process.env.BASIC_AUTH_PW) {
+    return true
+  } else {
+    return false
+  }
 }
