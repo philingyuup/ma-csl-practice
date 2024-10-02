@@ -25,7 +25,8 @@ type SheetDetails = sheet.sheets_v4.Schema$BatchGetValuesResponse
 
       // Remove the 'column name' row
       const [_first, ...rest] = range.values
-      questions.push(...rest)
+      const trimmed = rest.map((arr) => arr.map(item => item.trim()))
+      questions.push(...trimmed)
       return
     })
 

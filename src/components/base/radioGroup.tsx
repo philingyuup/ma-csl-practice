@@ -38,6 +38,10 @@ export function RadioGroupForm(props: RadioGroupFormProps) {
   })
 
   const { type: answer } = form.watch()
+
+  console.log('answer', answer)
+  console.log('props.answer', props.answer)
+  console.log('check', answer === props.answer)
   function onSubmit(data: SchemaType) {
     // submit when using outside of group reset
     if (!('answer' in props) && !('explanation' in props)) {
@@ -79,7 +83,6 @@ export function RadioGroupForm(props: RadioGroupFormProps) {
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
-                  defaultValue={undefined}
                   className='flex flex-col space-y-1'
                 >
                   {props.options.map((radio) => (

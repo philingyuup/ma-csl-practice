@@ -43,7 +43,8 @@ const QUESTIONS_PATH = path.join(__dirname, `./json/questions.json`);
                 return;
             // Remove the 'column name' row
             const [_first, ...rest] = range.values;
-            questions.push(...rest);
+            const trimmed = rest.map((arr) => arr.map(item => item.trim()));
+            questions.push(...trimmed);
             return;
         });
         await fs.writeFile(QUESTIONS_PATH, JSON.stringify(questions));
