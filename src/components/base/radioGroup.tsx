@@ -39,9 +39,6 @@ export function RadioGroupForm(props: RadioGroupFormProps) {
 
   const { type: answer } = form.watch()
 
-  console.log('answer', answer)
-  console.log('props.answer', props.answer)
-  console.log('check', answer === props.answer)
   function onSubmit(data: SchemaType) {
     // submit when using outside of group reset
     if (!('answer' in props) && !('explanation' in props)) {
