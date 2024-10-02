@@ -10,11 +10,10 @@ export type TestRunnerProps = {
 }
 
 export default function TestRunner(props: TestRunnerProps) {
-  console.log('props.data', props.data)
   const currentIndex = useExamStore(state => state.currentIndex)
   const next = useExamStore(state => state.next)
   const prev = useExamStore(state => state.prev)
-  const questions = useMemo(() => shuffle(props.data).slice(0, 30), [props.data])
+  const questions = useMemo(() => shuffle(props.data), [props.data])
   const currentQ = useMemo(() => questions[currentIndex], [questions, currentIndex])
   const question = useMemo<Pick<RadioGroupFormProps, 'title' | 'options'>>(() => {
     const [title, A, B, C, D] = currentQ
@@ -37,7 +36,6 @@ export default function TestRunner(props: TestRunnerProps) {
       explanation
     }
   }, [currentQ])
-
 
   return <div>
     <RadioGroupForm
