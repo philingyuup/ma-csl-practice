@@ -12,7 +12,7 @@ export type ExamState = {
 }
 
 export type ExamActions = {
-  next: (type: RadioValues | null) => void,
+  next: (type: RadioValues) => void,
   prev: () => void,
   setExam: (type: ExamState['examType']) => void,
 }
@@ -24,7 +24,6 @@ export const useExamStore = create<ExamState & ExamActions>()(
       currentIndex: 0,
       answers: [],
       next: (type) => set((state) => {
-        if (type === null) return;
         state.answers[state.currentIndex] = type
         state.currentIndex++
       }),

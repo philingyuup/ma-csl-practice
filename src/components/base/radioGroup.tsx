@@ -80,13 +80,14 @@ export function RadioGroupForm(props: RadioGroupFormProps) {
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  defaultValue={undefined}
                   className='flex flex-col space-y-1'
                 >
                   {props.options.map((radio) => (
                     <RadioItem 
                       key={radio.value}
                       name={radio.name}
+                      checked={field.value === radio.value}
                       value={radio.value}
                     />
                   ))}
@@ -115,11 +116,11 @@ export function RadioGroupForm(props: RadioGroupFormProps) {
   )
 }
 
-type RadioItemProps = RadioOverall['options'][number]
+type RadioItemProps = RadioOverall['options'][number] & { checked: boolean }
 const RadioItem = memo((props: RadioItemProps) => (
   <FormItem className='flex items-center space-x-3 space-y-0'>
     <FormControl>
-      <RadioGroupItem value={props.value} />
+      <RadioGroupItem checked={props.checked} value={props.value} />
     </FormControl>
     <FormLabel className='font-normal'>
       {props.value}: <span className='font-semibold'>{props.name}</span>
