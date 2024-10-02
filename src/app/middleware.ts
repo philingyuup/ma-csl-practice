@@ -27,3 +27,7 @@ function isAuthenticated(req: NextRequest) {
     return false
   }
 }
+
+export const config = {
+  matcher: '/:path*'
+}
